@@ -199,6 +199,17 @@ class SRResNet(nn.Module):
         bias: bool = False,
     ) -> None:
         super().__init__()
+        self.hyperparameters = {
+            "in_nc": in_nc,
+            "out_nc": out_nc,
+            "nf": nf,
+            "nb": nb,
+            "upscale": upscale,
+            "kernel_size": kernel_size,
+            "norm": norm,
+            "with_running_stats": with_running_stats,
+            "bias": bias,
+        }
 
         if upscale not in (1, 2, 4, 8):
             raise NotImplementedError(
@@ -408,6 +419,14 @@ class SRResNetSequential(nn.Module):
         bias: bool = True,
     ) -> None:
         super().__init__()
+        self.hyperparameters = {
+            "in_nc": in_nc,
+            "out_nc": out_nc,
+            "nf": nf,
+            "nb": nb,
+            "scale": scale,
+            "bias": bias,
+        }
 
         if scale not in (2, 3, 4, 8):
             raise NotImplementedError(
@@ -535,6 +554,13 @@ class MSRResNet(nn.Module):
         upscale: int = 4,
     ) -> None:
         super().__init__()
+        self.hyperparameters = {
+            "num_in_ch": num_in_ch,
+            "num_out_ch": num_out_ch,
+            "num_feat": num_feat,
+            "num_block": num_block,
+            "upscale": upscale,
+        }
         self.upscale = upscale
 
         if upscale not in (2, 3, 4):

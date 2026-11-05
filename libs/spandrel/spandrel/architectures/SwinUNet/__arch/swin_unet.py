@@ -300,6 +300,18 @@ class SwinUNetBase(nn.Module):
                  base_dim: int = 96, base_layers: int = 2, scale_factor: int = 2):
         super().__init__()
         assert scale_factor in {1, 2, 4, 8}
+        self.in_channels = in_channels
+        self.out_channels = out_channels
+        self.base_dim = base_dim
+        self.base_layers = base_layers
+        self.scale_factor = scale_factor
+        self.hyperparameters = {
+            "in_channels": in_channels,
+            "out_channels": out_channels,
+            "base_dim": base_dim,
+            "base_layers": base_layers,
+            "scale_factor": scale_factor,
+        }
         assert base_dim % 16 == 0 and base_dim % 6 == 0
         assert base_layers % 2 == 0
         self.in_channels = in_channels
@@ -374,6 +386,13 @@ class SwinUNet(nn.Module):
         super().__init__()
         self.unet = unet
         self.scale = scale
+        self.hyperparameters = {
+            "in_channels": getattr(unet, "in_channels", 3),
+            "out_channels": getattr(unet, "out_channels", 3),
+            "base_dim": getattr(unet, "base_dim", 96),
+            "base_layers": getattr(unet, "base_layers", 2),
+            "scale": scale,
+        }
 
     @staticmethod
     def _pad_amount(size: int) -> tuple[int, int, int]:

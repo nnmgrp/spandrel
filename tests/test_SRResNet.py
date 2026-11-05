@@ -15,7 +15,7 @@ def test_load():
         lambda: MSRResNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=16, upscale=4),
         lambda: MSRResNet(num_in_ch=3, num_out_ch=3, num_feat=32, num_block=8, upscale=2),
         lambda: SRResNet(in_nc=3, out_nc=3, nf=64, nb=16, upscale=4),
-        lambda: SRResNet(in_nc=3, out_nc=3, nf=32, nb=8, upscale=2, norm="batch"),
+        lambda: SRResNet(in_nc=3, out_nc=3, nf=32, nb=8, upscale=2, norm="batch", with_running_stats=True),
         lambda: SRResNetSequential(in_nc=3, out_nc=3, nf=64, nb=16, scale=2),
     )
 
